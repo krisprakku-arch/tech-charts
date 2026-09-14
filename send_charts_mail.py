@@ -7,8 +7,10 @@ from email.mime.image import MIMEImage
 from email.mime.application import MIMEApplication
 from email.header import Header
 
-BASE = Path("/Users/kris/Desktop/Invetement Intelligence/Investment_Intelligence")
-OUT = Path("/tmp/tech_analysis")
+ROOT = Path(__file__).resolve().parent  # .../Tech_Charts
+BASE = Path(os.environ.get("TECH_ENV_DIR", str(ROOT.parent)))  # โฟลเดอร์ที่มี .env (default: โฟลเดอร์แม่)
+OUT = Path(os.environ.get("TECH_DATA_DIR", "/tmp/tech_analysis"))
+OUT.mkdir(parents=True, exist_ok=True)
 env = {}
 for line in (BASE/".env").read_text().splitlines():
     if "=" in line and not line.strip().startswith("#"):

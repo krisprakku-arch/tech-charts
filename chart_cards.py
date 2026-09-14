@@ -1,5 +1,5 @@
 """BBL-style technical chart cards: candle chart (left) + info panel (right). Test first."""
-import pandas as pd, json, sys, textwrap
+import pandas as pd, json, sys, textwrap, os
 from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
@@ -8,7 +8,8 @@ from matplotlib.font_manager import FontProperties
 from matplotlib.patches import Rectangle
 import matplotlib.gridspec as gs
 
-OUT = Path("/tmp/tech_analysis")
+OUT = Path(os.environ.get("TECH_DATA_DIR", "/tmp/tech_analysis"))
+OUT.mkdir(parents=True, exist_ok=True)
 TH = FontProperties(family="Sarabun")
 THB = FontProperties(family="Sarabun", weight="bold")
 UP, DN = "#26a69a", "#ef5350"

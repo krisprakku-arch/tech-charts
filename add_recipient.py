@@ -1,8 +1,9 @@
 """Add one recipient to TECH_CHART_TO in the pipeline .env (usage: add_recipient.py <email>)."""
-import sys
+import os, sys
 from pathlib import Path
 
-ENV = Path("/Users/kris/Desktop/Invetement Intelligence/Investment_Intelligence/.env")
+ROOT = Path(__file__).resolve().parent
+ENV = Path(os.environ.get("TECH_ENV_FILE", str(ROOT.parent / ".env")))
 
 def main():
     email = sys.argv[1].strip()

@@ -1,12 +1,13 @@
 """V2: Price + RSI only + SR, 8 symbols."""
-import yfinance as yf, pandas as pd, json, math
+import yfinance as yf, pandas as pd, json, math, os
 from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
-OUT = Path("/tmp/tech_analysis")
+OUT = Path(os.environ.get("TECH_DATA_DIR", "/tmp/tech_analysis"))
+OUT.mkdir(parents=True, exist_ok=True)
 SYMBOLS = {
     "SP500": "^GSPC",
     "US10Y": "^TNX",

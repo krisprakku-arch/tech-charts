@@ -1,0 +1,6 @@
+yfinance>=1.2
+pandas>=2.0
+matplotlib>=3.8
+mplfinance>=0.12
+pillow>=10
+requests>=2.31

@@ -1,5 +1,5 @@
 """Build PDF: cover + 1 card per page."""
-import json
+import json, os
 from pathlib import Path
 from datetime import date
 import matplotlib
@@ -8,7 +8,8 @@ import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
 from PIL import Image
 
-OUT = Path("/tmp/tech_analysis")
+OUT = Path(os.environ.get("TECH_DATA_DIR", "/tmp/tech_analysis"))
+OUT.mkdir(parents=True, exist_ok=True)
 ORDER = ["SP500","NASDAQ","US10Y","STOXX600","SET","SSE","HSCEI","NIKKEI225","SENSEX","XAU","USDTHB","BRENT"]
 TNAMES = {"SP500":"S&P 500 (สหรัฐ)","NASDAQ":"Nasdaq (สหรัฐ)","US10Y":"US 10Y Yield",
           "STOXX600":"STOXX 600 (ยุโรป)","SET":"SET Index (ไทย)",
