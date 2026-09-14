@@ -12,23 +12,24 @@ SYMBOLS = {
     "US10Y": "^TNX",
     "NASDAQ": "^IXIC",
     "STOXX600": "^STOXX",
-    "CSI300": "3188.HK",
+    "SET": "^SET.BK",
+    "SSE": "000001.SS",
     "HSCEI": "^HSCE",
     "NIKKEI225": "^N225",
     "SENSEX": "^BSESN",
-    "GOLD": "GC=F",
+    "XAU": "GC=F",
     "USDTHB": "THB=X",
     "BRENT": "BZ=F",
 }
 NAMES = {
     "SP500":"S&P 500 (US)", "NASDAQ":"Nasdaq Composite (US)", "US10Y":"US 10Y Treasury Yield",
     "STOXX600":"STOXX 600 (Europe)",
-    "CSI300":"CSI 300 ETF (3188.HK)", "HSCEI":"HSCEI (HK China)",
+    "SET":"SET Index (Thailand)", "SSE":"SSE Composite (China)", "HSCEI":"HSCEI (HK China)",
     "NIKKEI225":"Nikkei 225 (Japan)", "SENSEX":"Sensex 30 (India)",
-    "GOLD":"Gold Futures",
+    "XAU":"Gold Spot (XAU/USD, via GC=F)",
     "USDTHB":"USD/THB", "BRENT":"Brent Oil Futures",
 }
-UNITS = {"SP500":"pts","NASDAQ":"pts","STOXX600":"pts","CSI300":"HKD","HSCEI":"pts","NIKKEI225":"pts","SENSEX":"pts","GOLD":"$/oz","USDTHB":"THB","BRENT":"$/bbl","US10Y":"%"}
+UNITS = {"SP500":"pts","NASDAQ":"pts","STOXX600":"pts","SET":"pts","SSE":"pts","HSCEI":"pts","NIKKEI225":"pts","SENSEX":"pts","XAU":"$/oz","USDTHB":"THB","BRENT":"$/bbl","US10Y":"%"}
 
 def rsi(close, n=14):
     d = close.diff()

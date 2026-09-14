@@ -22,10 +22,11 @@ SMTP_PASS = env.get("SMTP_PASSWORD","")
 SMTP_FROM = env.get("SMTP_FROM", SMTP_USER)
 TO_LIST = [a.strip() for a in env.get("TECH_CHART_TO", env.get("SMTP_TO",SMTP_USER)).split(",") if a.strip()]
 
-FILES = ["SP500","NASDAQ","US10Y","STOXX600","CSI300","HSCEI","NIKKEI225","SENSEX","GOLD","USDTHB","BRENT"]
-TNAMES = {"SP500":"S&P 500 (สหรัฐ)","NASDAQ":"Nasdaq (สหรัฐ)","US10Y":"US 10Y Yield (สหรัฐ)","STOXX600":"STOXX 600 (ยุโรป)","CSI300":"CSI 300 ETF (3188.HK ฮ่องกง)",
+FILES = ["SP500","NASDAQ","US10Y","STOXX600","SET","SSE","HSCEI","NIKKEI225","SENSEX","XAU","USDTHB","BRENT"]
+TNAMES = {"SP500":"S&P 500 (สหรัฐ)","NASDAQ":"Nasdaq (สหรัฐ)","US10Y":"US 10Y Yield (สหรัฐ)","STOXX600":"STOXX 600 (ยุโรป)","SET":"SET Index (ไทย)",
+          "SSE":"SSE Composite (เซี่ยงไฮ้)",
           "HSCEI":"HSCEI (ฮ่องกง-จีน)","NIKKEI225":"Nikkei 225 (ญี่ปุ่น)","SENSEX":"Sensex (อินเดีย)",
-          "GOLD":"ทองคำ","USDTHB":"USD/THB","BRENT":"น้ำมัน Brent"}
+          "XAU":"ทองคำ (XAU)","USDTHB":"USD/THB","BRENT":"น้ำมัน Brent"}
 summ = json.loads((OUT/"sr_summary_v2.json").read_text(encoding="utf-8"))
 
 def trend_tag(trend):
@@ -53,7 +54,7 @@ def reading(key, s, sr, cur):
 L = []
 L.append("เรียน CIO Team,")
 L.append("")
-L.append("รายงานเทคนิคย่อรายวัน — กราฟแท่งเทียน + EMA50/200 + RSI + แนวรับ/แนวต้าน (11 ตลาด, รายละเอียดในไฟล์แนบ PNG)")
+L.append("รายงานเทคนิคย่อรายวัน — กราฟแท่งเทียน + EMA50/200 + RSI + แนวรับ/แนวต้าน (12 ตลาด, รายละเอียดในไฟล์แนบ PNG)")
 L.append("="*60)
 up = sum(1 for k in FILES if "UPTREND" in summ.get(k,{}).get("trend",""))
 down = sum(1 for k in FILES if "DOWN" in summ.get(k,{}).get("trend","").upper())
@@ -81,7 +82,7 @@ if "--to" in sys.argv:
 msg = MIMEMultipart()
 msg["From"] = SMTP_FROM
 msg["To"] = ", ".join(TO_LIST)
-msg["Subject"] = Header("📈 Technical Daily (Candle+RSI+SR): สรุปแนวรับ-แนวต้าน 11 ตลาด — ฉบับย่อในเมล์ + กราฟแนบ", "utf-8")
+msg["Subject"] = Header("📈 Technical Daily (Candle+RSI+SR): สรุปแนวรับ-แนวต้าน 12 ตลาด — ฉบับย่อในเมล์ + กราฟแนบ", "utf-8")
 msg.attach(MIMEText(body, "plain", "utf-8"))
 for k in FILES:
     p = OUT/f"{k}_card.png"

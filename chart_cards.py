@@ -98,8 +98,9 @@ def card(key, title, df, trend, reason, r, sr):
 if __name__ == "__main__":
     summ = json.loads((OUT / "sr_summary_v2.json").read_text(encoding="utf-8"))
     only = sys.argv[1:] or ["SP500", "BRENT"]
-    names = {"SP500": "S&P 500", "BRENT": "Brent", "GOLD": "ทองคำ", "NASDAQ": "Nasdaq",
-             "US10Y": "US 10Y", "STOXX600": "STOXX 600", "CSI300": "CSI 300",
+    names = {"SP500": "S&P 500", "BRENT": "Brent", "XAU": "ทองคำ (XAU)", "NASDAQ": "Nasdaq",
+             "US10Y": "US 10Y", "STOXX600": "STOXX 600", "SET": "SET Index",
+             "SSE": "SSE Composite",
              "HSCEI": "HSCEI", "NIKKEI225": "Nikkei 225", "SENSEX": "Sensex", "USDTHB": "USD/THB"}
     for key in only:
         df = pd.read_csv(OUT / f"{key}_daily.csv", parse_dates=["Date"], index_col="Date")

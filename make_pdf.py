@@ -9,11 +9,12 @@ from matplotlib.font_manager import FontProperties
 from PIL import Image
 
 OUT = Path("/tmp/tech_analysis")
-ORDER = ["SP500","NASDAQ","US10Y","STOXX600","CSI300","HSCEI","NIKKEI225","SENSEX","GOLD","USDTHB","BRENT"]
+ORDER = ["SP500","NASDAQ","US10Y","STOXX600","SET","SSE","HSCEI","NIKKEI225","SENSEX","XAU","USDTHB","BRENT"]
 TNAMES = {"SP500":"S&P 500 (สหรัฐ)","NASDAQ":"Nasdaq (สหรัฐ)","US10Y":"US 10Y Yield",
-          "STOXX600":"STOXX 600 (ยุโรป)","CSI300":"CSI 300 ETF (3188.HK)",
+          "STOXX600":"STOXX 600 (ยุโรป)","SET":"SET Index (ไทย)",
+          "SSE":"SSE Composite (จีน)",
           "HSCEI":"HSCEI (ฮ่องกง-จีน)","NIKKEI225":"Nikkei 225 (ญี่ปุ่น)",
-          "SENSEX":"Sensex (อินเดีย)","GOLD":"ทองคำ","USDTHB":"USD/THB","BRENT":"น้ำมัน Brent"}
+          "SENSEX":"Sensex (อินเดีย)","XAU":"ทองคำ (XAU)","USDTHB":"USD/THB","BRENT":"น้ำมัน Brent"}
 TH = FontProperties(family="Sarabun"); THB = FontProperties(family="Sarabun", weight="bold")
 
 summ = json.loads((OUT/"sr_summary_v2.json").read_text(encoding="utf-8"))
