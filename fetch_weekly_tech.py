@@ -67,9 +67,9 @@ def calc_sr(df):
     r1 = round(r1, dg); r2 = round(r2, dg); s1 = round(s1, dg); s2 = round(s2, dg)
     mg = round(min_gap, dg) or 10**-dg
     if r1 <= cr: r1 = round(cr + mg, dg)
-    if r2 <= r1: r2 = round(r1 + mg, dg)
+    if r2 - r1 < mg: r2 = round(r1 + mg, dg)
     if s1 >= cr: s1 = round(cr - mg, dg)
-    if s2 >= s1: s2 = round(s1 - mg, dg)
+    if s1 - s2 < mg: s2 = round(s1 - mg, dg)
     return {"R2":r2,"R1":r1,"S1":s1,"S2":s2,"EMA50":e50,"EMA200":e200,"ATR":a}
 
 def trend(df):
