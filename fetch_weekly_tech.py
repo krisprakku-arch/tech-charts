@@ -62,11 +62,12 @@ def calc_sr(df):
     s1 = cS[0] if cS else cur*0.97
     s2c = [x for x in cS if s1-win <= x <= s1-min_gap]
     s2 = s2c[0] if s2c else s1-min_gap
-    # ขยับออกด้านนอก 1 ชั้น: แนวใกล้สุดหลุด เอาแนวที่ 2 ขึ้นเป็นแนวที่ 1 แล้วหาแนวที่ 2 ใหม่ให้ลึกกว่าเดิม
+    # S1/R1 ใช้แนวใกล้สุดเหมือนเดิม ส่วน S2/R2 ใช้แนวชั้นลึก (ห่าง มีนัยสำคัญ)
+    r0, s0 = r1, s1
     r3c = [x for x in cR if r2+min_gap <= x <= r2+win]
-    r1, r2 = r2, (r3c[0] if r3c else r2+min_gap)
+    r1, r2 = r0, (r3c[0] if r3c else r2+min_gap)
     s3c = [x for x in cS if s2-win <= x <= s2-min_gap]
-    s1, s2 = s2, (s3c[0] if s3c else s2-min_gap)
+    s1, s2 = s0, (s3c[0] if s3c else s2-min_gap)
     # ปัดเศษตามขนาดราคา + บังคับให้ R2>R1>Close>S1>S2 หลังปัด (กันป้ายซ้ำจาก rounding)
     dg = 0 if cur >= 1000 else (1 if cur >= 100 else 2)
     cr = round(cur, dg)
