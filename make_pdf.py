@@ -15,7 +15,7 @@ TNAMES = {"SP500":"S&P 500 (สหรัฐ)","NASDAQ":"Nasdaq (สหรัฐ)
           "STOXX600":"STOXX 600 (ยุโรป)","SET":"SET Index (ไทย)",
           "SSE":"SSE Composite (จีน)",
           "HSCEI":"HSCEI (ฮ่องกง-จีน)","NIKKEI225":"Nikkei 225 (ญี่ปุ่น)",
-          "SENSEX":"Sensex (อินเดีย)","XAU":"ทองคำ (XAU)","USDTHB":"USD/THB","BRENT":"น้ำมัน Brent"}
+          "SENSEX":"Sensex (อินเดีย)","XAU":"ทองคำ","USDTHB":"USD/THB","BRENT":"น้ำมัน Brent"}
 TH = FontProperties(family="Sarabun"); THB = FontProperties(family="Sarabun", weight="bold")
 
 summ = json.loads((OUT/"sr_summary_v2.json").read_text(encoding="utf-8"))

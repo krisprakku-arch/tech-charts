@@ -27,7 +27,7 @@ NAMES = {
     "STOXX600":"STOXX 600 (Europe)",
     "SET":"SET Index (Thailand)", "SSE":"SSE Composite (China)", "HSCEI":"HSCEI (HK China)",
     "NIKKEI225":"Nikkei 225 (Japan)", "SENSEX":"Sensex 30 (India)",
-    "XAU":"Gold Spot (XAU/USD, via GC=F)",
+    "XAU":"Gold Futures (GC=F)",
     "USDTHB":"USD/THB", "BRENT":"Brent Oil Futures",
 }
 UNITS = {"SP500":"pts","NASDAQ":"pts","STOXX600":"pts","SET":"pts","SSE":"pts","HSCEI":"pts","NIKKEI225":"pts","SENSEX":"pts","XAU":"$/oz","USDTHB":"THB","BRENT":"$/bbl","US10Y":"%"}
@@ -52,7 +52,7 @@ def calc_sr(df):
     step = 500 if cur>=10000 else 100 if cur>=1000 else 10 if cur>=100 else 1
     psy_up=math.ceil(cur/step)*step; psy_lo=math.floor(cur/step)*step
     a = atr(df)
-    min_gap = max(a*0.8, cur*0.008)  # แนวที่ 2 ต้องห่างจากแนวที่ 1 อย่างน้อย ~0.8 ATR หรือ 0.8%
+    min_gap = max(a*1.0, cur*0.01)  # แนวที่ 2 ต้องห่างจากแนวที่ 1 อย่างน้อย ~1.0 ATR หรือ 1.0%
     win = min_gap*2  # แต่ไม่ไกลเกิน 2 เท่าของ min_gap ไม่งั้น fallback (ใช้ไม่ได้จริง)
     cR=sorted(set(x for x in [hi_s,hi_l,bb_up,psy_up,e50,e200] if x>cur*1.001))
     cS=sorted(set(x for x in [lo_s,lo_l,bb_lo,psy_lo,e50,e200] if x<cur*0.999),reverse=True)

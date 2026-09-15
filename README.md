@@ -4,7 +4,7 @@
 → วาดการ์ดกราฟ (candlestick + RSI) → รวม PDF → ส่งอีเมล สรุปภาษาไทย
 
 ครอบคลุม 12 ตลาด: S&P500, Nasdaq, US10Y, STOXX600, SET, SSE Composite,
-HSCEI, Nikkei225, Sensex, ทองคำ (XAU, ข้อมูล via GC=F), USD/THB, Brent
+HSCEI, Nikkei225, Sensex, ทองคำล่วงหน้า (GC=F), USD/THB, Brent
 
 ## ติดตั้ง (ทำครั้งเดียว)
 
@@ -42,6 +42,6 @@ python add_recipient.py someone@gmail.com          # เพิ่มผู้ร
 
 ## หมายเหตุ
 
-- ทองคำแสดงป้าย **XAU** แต่ดึงฟีด `GC=F` (Yahoo เลิกให้ฟีด XAU spot แล้ว)
-- แนวรับ/ต้านจาก High/Low 20–60 วัน + EMA + Bollinger + เลขจิตวิทยา ชั้นที่ 2 ห่างชั้นที่ 1 ≥ ~0.8 ATR
+- ทองคำใช้ฟีดฟิวเจอร์ส `GC=F` (Yahoo เลิกให้ฟีด XAU spot แล้ว)
+- แนวรับ/ต้านจาก High/Low 20–60 วัน + EMA + Bollinger + เลขจิตวิทยา ชั้นที่ 2 ห่างชั้นที่ 1 ≥ ~1.0 ATR หรือ 1.0%
 - ข้อมูลล่าช้าตาม Yahoo Finance — ประกอบการตัดสินใจ ไม่ใช่คำแนะนำซื้อขาย

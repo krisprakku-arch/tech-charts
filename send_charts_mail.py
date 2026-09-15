@@ -28,7 +28,7 @@ FILES = ["SP500","NASDAQ","US10Y","STOXX600","SET","SSE","HSCEI","NIKKEI225","SE
 TNAMES = {"SP500":"S&P 500 (สหรัฐ)","NASDAQ":"Nasdaq (สหรัฐ)","US10Y":"US 10Y Yield (สหรัฐ)","STOXX600":"STOXX 600 (ยุโรป)","SET":"SET Index (ไทย)",
           "SSE":"SSE Composite (เซี่ยงไฮ้)",
           "HSCEI":"HSCEI (ฮ่องกง-จีน)","NIKKEI225":"Nikkei 225 (ญี่ปุ่น)","SENSEX":"Sensex (อินเดีย)",
-          "XAU":"ทองคำ (XAU)","USDTHB":"USD/THB","BRENT":"น้ำมัน Brent"}
+          "XAU":"ทองคำ","USDTHB":"USD/THB","BRENT":"น้ำมัน Brent"}
 summ = json.loads((OUT/"sr_summary_v2.json").read_text(encoding="utf-8"))
 
 def trend_tag(trend):
