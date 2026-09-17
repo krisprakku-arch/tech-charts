@@ -89,12 +89,18 @@ def trend(df):
     return ("SIDEWAYS", f"Wrapping EMA50, RSI {r:.1f} — wait for R1/S1 break")
 
 full={}
+skipped={}
+MIN_ROWS = 200  # ต้องมีอย่างน้อยพอคำนวณ EMA200 + ATR14 ไม่งั้นการ์ดจะได้ nan
 for key,ticker in SYMBOLS.items():
     print(f"Fetching {key} {ticker}...")
     df=yf.download(ticker,period="2y",interval="1d",auto_adjust=True,progress=False)
-    if df is None or df.empty: print(f" FAIL {key}"); continue
+    if df is None or df.empty: print(f" FAIL {key}"); skipped[key]="ไม่มีข้อมูลจาก Yahoo"; continue
     if isinstance(df.columns,pd.MultiIndex): df.columns=df.columns.get_level_values(0)
     df=df.dropna()
+    if len(df) < MIN_ROWS:
+        skipped[key]=f"ข้อมูลย้อนหลังไม่พอ ({len(df)} แท่ง < {MIN_ROWS}) — ฟีดขาด คำนวณ EMA200/ATR ไม่ได้"
+        print(f" SKIP {key}: {skipped[key]}")
+        continue
     df["EMA50"]=df["Close"].ewm(span=50,adjust=False).mean()
     df["EMA200"]=df["Close"].ewm(span=200,adjust=False).mean()
     df["RSI14"]=rsi(df["Close"])
@@ -134,4 +140,7 @@ for key,ticker in SYMBOLS.items():
     fig.tight_layout(rect=[0,0.04,1,0.95]); fig.savefig(OUT/f"{key}_daily_v2.png",dpi=150); plt.close(fig)
     print(f" OK {key}: {t} {cur:,.2f} R1 {sr['R1']:,.2f} S1 {sr['S1']:,.2f}")
 (OUT/"sr_summary_v2.json").write_text(json.dumps(full,ensure_ascii=False,indent=2),encoding="utf-8")
+(OUT/"run_status.json").write_text(json.dumps({"ok":list(full.keys()),"skipped":skipped},ensure_ascii=False,indent=2),encoding="utf-8")
+if skipped:
+    print("SKIPPED_SYMBOLS:", ", ".join(f"{k} ({v})" for k,v in skipped.items()))
 print("DONE_V2")

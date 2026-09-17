@@ -19,7 +19,13 @@ TNAMES = {"SP500":"S&P 500 (สหรัฐ)","NASDAQ":"Nasdaq (สหรัฐ)
 TH = FontProperties(family="Sarabun"); THB = FontProperties(family="Sarabun", weight="bold")
 
 summ = json.loads((OUT/"sr_summary_v2.json").read_text(encoding="utf-8"))
+status = json.loads((OUT/"run_status.json").read_text(encoding="utf-8")) if (OUT/"run_status.json").exists() else {"ok":list(summ.keys()),"skipped":{}}
+skipped = status.get("skipped", {})
 today = date.today().strftime("%d %B %Y")
+# เอาเฉพาะตลาดที่มีการ์ดจริง (กัน PDF พังเมื่อฟีดตัวใดตัวหนึ่งขาด)
+cards = [k for k in ORDER if (OUT/f"{k}_card.png").exists()]
+missing = [k for k in ORDER if k not in cards]
+ORDER = cards
 
 def tag(t):
     t = t.upper()
@@ -33,6 +39,9 @@ fig.patch.set_facecolor("#0a2240")
 fig.text(0.5, 0.72, "Technical Charts", fontsize=44, color="white", ha="center", weight="bold")
 fig.text(0.5, 0.62, "กราฟแท่งเทียน + EMA50/200 + RSI + แนวรับ-แนวต้าน", fontproperties=TH, fontsize=20, color="#ffd84d", ha="center")
 fig.text(0.5, 0.50, f"{len(ORDER)} ตลาด  •  ข้อมูล ณ {today}", fontproperties=TH, fontsize=14, color="white", ha="center")
+if skipped or missing:
+    miss = sorted(set(list(skipped.keys()) + missing))
+    fig.text(0.5, 0.40, "ไม่มีข้อมูลในฉบับนี้: " + ", ".join(miss), fontproperties=TH, fontsize=11, color="#ff9a9a", ha="center")
 fig.text(0.5, 0.06, "Bangkok Bank CIO  •  Internal Use Only", fontproperties=TH, fontsize=10, color="#8a9cc0", ha="center")
 fig.savefig(OUT/"_cover.png", dpi=150)
 plt.close(fig)

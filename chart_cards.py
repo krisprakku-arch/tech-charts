@@ -98,13 +98,19 @@ def card(key, title, df, trend, reason, r, sr):
 
 if __name__ == "__main__":
     summ = json.loads((OUT / "sr_summary_v2.json").read_text(encoding="utf-8"))
-    only = sys.argv[1:] or ["SP500", "BRENT"]
+    only = sys.argv[1:] or list(summ.keys())
     names = {"SP500": "S&P 500", "BRENT": "Brent", "XAU": "ทองคำ", "NASDAQ": "Nasdaq",
              "US10Y": "US 10Y", "STOXX600": "STOXX 600", "SET": "SET Index",
              "SSE": "SSE Composite",
              "HSCEI": "HSCEI", "NIKKEI225": "Nikkei 225", "SENSEX": "Sensex", "USDTHB": "USD/THB"}
+    done = 0
     for key in only:
-        df = pd.read_csv(OUT / f"{key}_daily.csv", parse_dates=["Date"], index_col="Date")
+        csv = OUT / f"{key}_daily.csv"
+        if key not in summ or not csv.exists():
+            print(f"SKIP {key}: ไม่มีข้อมูล (ถูกข้ามจากขั้นดึงข้อมูล)")
+            continue
+        df = pd.read_csv(csv, parse_dates=["Date"], index_col="Date")
         s = summ[key]
         card(key, names.get(key, key), df, s["trend"], s["reason"], s["rsi"], s["sr"])
-    print("DONE_CARDS")
+        done += 1
+    print("DONE_CARDS", done)

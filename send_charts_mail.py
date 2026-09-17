@@ -30,6 +30,10 @@ TNAMES = {"SP500":"S&P 500 (สหรัฐ)","NASDAQ":"Nasdaq (สหรัฐ)
           "HSCEI":"HSCEI (ฮ่องกง-จีน)","NIKKEI225":"Nikkei 225 (ญี่ปุ่น)","SENSEX":"Sensex (อินเดีย)",
           "XAU":"ทองคำ","USDTHB":"USD/THB","BRENT":"น้ำมัน Brent"}
 summ = json.loads((OUT/"sr_summary_v2.json").read_text(encoding="utf-8"))
+status = json.loads((OUT/"run_status.json").read_text(encoding="utf-8")) if (OUT/"run_status.json").exists() else {"ok":list(summ.keys()),"skipped":{}}
+skipped = status.get("skipped", {})
+# เอาเฉพาะตลาดที่มีข้อมูล + การ์ดจริง
+FILES = [k for k in FILES if k in summ and (OUT/f"{k}_card.png").exists()]
 
 def trend_tag(trend):
     t = trend.upper()
@@ -56,7 +60,10 @@ def reading(key, s, sr, cur):
 L = []
 L.append("เรียน CIO Team,")
 L.append("")
-L.append("รายงานเทคนิคย่อรายวัน — กราฟแท่งเทียน + EMA50/200 + RSI + แนวรับ/แนวต้าน (12 ตลาด, รายละเอียดในไฟล์แนบ PNG)")
+L.append(f"รายงานเทคนิคย่อรายวัน — กราฟแท่งเทียน + EMA50/200 + RSI + แนวรับ/แนวต้าน ({len(FILES)} ตลาด, รายละเอียดในไฟล์แนบ PNG)")
+if skipped:
+    L.append("⚠️ ไม่มีข้อมูลในฉบับนี้: " + " | ".join(f"{k} — {v}" for k, v in sorted(skipped.items())))
+    L.append("   (ดึงข้อมูลจากแหล่งข้อมูลไม่ครบ ระบบข้ามเพื่อกันกราฟผิดพลาด จะกลับมาเองเมื่อแหล่งข้อมูลปกติ)")
 L.append("="*60)
 up = sum(1 for k in FILES if "UPTREND" in summ.get(k,{}).get("trend",""))
 down = sum(1 for k in FILES if "DOWN" in summ.get(k,{}).get("trend","").upper())
@@ -84,7 +91,7 @@ if "--to" in sys.argv:
 msg = MIMEMultipart()
 msg["From"] = SMTP_FROM
 msg["To"] = ", ".join(TO_LIST)
-msg["Subject"] = Header("📈 Technical Daily (Candle+RSI+SR): สรุปแนวรับ-แนวต้าน 12 ตลาด — ฉบับย่อในเมล์ + กราฟแนบ", "utf-8")
+msg["Subject"] = Header(f"📈 Technical Daily (Candle+RSI+SR): สรุปแนวรับ-แนวต้าน {len(FILES)} ตลาด — ฉบับย่อในเมล์ + กราฟแนบ", "utf-8")
 msg.attach(MIMEText(body, "plain", "utf-8"))
 for k in FILES:
     p = OUT/f"{k}_card.png"
