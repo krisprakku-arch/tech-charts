@@ -3,8 +3,11 @@
 ดึงราคาจาก Yahoo Finance → คำนวณ EMA50/200 + RSI14 + แนวรับ/แนวต้าน (ATR-based)
 → วาดการ์ดกราฟ (candlestick + RSI) → รวม PDF → ส่งอีเมล สรุปภาษาไทย
 
-ครอบคลุม 12 ตลาด: S&P500, Nasdaq, US10Y, STOXX600, SET, SSE Composite,
-HSCEI, Nikkei225, Sensex, ทองคำล่วงหน้า (GC=F), USD/THB, Brent
+ครอบคลุม 12 ตลาด: S&P500, Nasdaq, US10Y, STOXX600, SSE Composite, HSI, HSCEI,
+Nikkei225, Sensex, ทองคำล่วงหน้า (GC=F), USD/THB, Brent
+
+> SET Index ถูกดึงไว้ในรายการแต่จะถูกข้ามอัตโนมัติ เพราะ Yahoo เลิกส่งประวัติย้อนหลังของดัชนีไทย
+> (คืนมาได้แค่แท่งเดียว) — ถ้าแหล่งข้อมูลกลับมาปกติ การ์ดจะกลับมาเองโดยไม่ต้องแก้โค้ด
 
 ## ติดตั้ง (ทำครั้งเดียว)
 
