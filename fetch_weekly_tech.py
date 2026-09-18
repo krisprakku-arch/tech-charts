@@ -15,6 +15,7 @@ SYMBOLS = {
     "STOXX600": "^STOXX",
     "SET": "^SET.BK",
     "SSE": "000001.SS",
+    "HSI": "^HSI",
     "HSCEI": "^HSCE",
     "NIKKEI225": "^N225",
     "SENSEX": "^BSESN",
@@ -25,12 +26,12 @@ SYMBOLS = {
 NAMES = {
     "SP500":"S&P 500 (US)", "NASDAQ":"Nasdaq Composite (US)", "US10Y":"US 10Y Treasury Yield",
     "STOXX600":"STOXX 600 (Europe)",
-    "SET":"SET Index (Thailand)", "SSE":"SSE Composite (China)", "HSCEI":"HSCEI (HK China)",
+    "SET":"SET Index (Thailand)", "SSE":"SSE Composite (China)", "HSI":"Hang Seng Index (HK, HSI)", "HSCEI":"HSCEI (HK China)",
     "NIKKEI225":"Nikkei 225 (Japan)", "SENSEX":"Sensex 30 (India)",
     "XAU":"Gold Futures (GC=F)",
     "USDTHB":"USD/THB", "BRENT":"Brent Oil Futures",
 }
-UNITS = {"SP500":"pts","NASDAQ":"pts","STOXX600":"pts","SET":"pts","SSE":"pts","HSCEI":"pts","NIKKEI225":"pts","SENSEX":"pts","XAU":"$/oz","USDTHB":"THB","BRENT":"$/bbl","US10Y":"%"}
+UNITS = {"SP500":"pts","NASDAQ":"pts","STOXX600":"pts","SET":"pts","SSE":"pts","HSI":"pts","HSCEI":"pts","NIKKEI225":"pts","SENSEX":"pts","XAU":"$/oz","USDTHB":"THB","BRENT":"$/bbl","US10Y":"%"}
 
 def rsi(close, n=14):
     d = close.diff()

@@ -24,9 +24,9 @@ SMTP_PASS = env.get("SMTP_PASSWORD","")
 SMTP_FROM = env.get("SMTP_FROM", SMTP_USER)
 TO_LIST = [a.strip() for a in env.get("TECH_CHART_TO", env.get("SMTP_TO",SMTP_USER)).split(",") if a.strip()]
 
-FILES = ["SP500","NASDAQ","US10Y","STOXX600","SET","SSE","HSCEI","NIKKEI225","SENSEX","XAU","USDTHB","BRENT"]
+FILES = ["SP500","NASDAQ","US10Y","STOXX600","SET","SSE","HSI","HSCEI","NIKKEI225","SENSEX","XAU","USDTHB","BRENT"]
 TNAMES = {"SP500":"S&P 500 (สหรัฐ)","NASDAQ":"Nasdaq (สหรัฐ)","US10Y":"US 10Y Yield (สหรัฐ)","STOXX600":"STOXX 600 (ยุโรป)","SET":"SET Index (ไทย)",
-          "SSE":"SSE Composite (เซี่ยงไฮ้)",
+          "SSE":"SSE Composite (เซี่ยงไฮ้)","HSI":"HSI (ฮ่องกง)",
           "HSCEI":"HSCEI (ฮ่องกง-จีน)","NIKKEI225":"Nikkei 225 (ญี่ปุ่น)","SENSEX":"Sensex (อินเดีย)",
           "XAU":"ทองคำ","USDTHB":"USD/THB","BRENT":"น้ำมัน Brent"}
 summ = json.loads((OUT/"sr_summary_v2.json").read_text(encoding="utf-8"))

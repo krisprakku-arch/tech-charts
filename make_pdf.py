@@ -10,10 +10,10 @@ from PIL import Image
 
 OUT = Path(os.environ.get("TECH_DATA_DIR", "/tmp/tech_analysis"))
 OUT.mkdir(parents=True, exist_ok=True)
-ORDER = ["SP500","NASDAQ","US10Y","STOXX600","SET","SSE","HSCEI","NIKKEI225","SENSEX","XAU","USDTHB","BRENT"]
+ORDER = ["SP500","NASDAQ","US10Y","STOXX600","SET","SSE","HSI","HSCEI","NIKKEI225","SENSEX","XAU","USDTHB","BRENT"]
 TNAMES = {"SP500":"S&P 500 (สหรัฐ)","NASDAQ":"Nasdaq (สหรัฐ)","US10Y":"US 10Y Yield",
           "STOXX600":"STOXX 600 (ยุโรป)","SET":"SET Index (ไทย)",
-          "SSE":"SSE Composite (จีน)",
+          "SSE":"SSE Composite (จีน)","HSI":"HSI (ฮ่องกง)",
           "HSCEI":"HSCEI (ฮ่องกง-จีน)","NIKKEI225":"Nikkei 225 (ญี่ปุ่น)",
           "SENSEX":"Sensex (อินเดีย)","XAU":"ทองคำ","USDTHB":"USD/THB","BRENT":"น้ำมัน Brent"}
 TH = FontProperties(family="Sarabun"); THB = FontProperties(family="Sarabun", weight="bold")
@@ -39,9 +39,6 @@ fig.patch.set_facecolor("#0a2240")
 fig.text(0.5, 0.72, "Technical Charts", fontsize=44, color="white", ha="center", weight="bold")
 fig.text(0.5, 0.62, "กราฟแท่งเทียน + EMA50/200 + RSI + แนวรับ-แนวต้าน", fontproperties=TH, fontsize=20, color="#ffd84d", ha="center")
 fig.text(0.5, 0.50, f"{len(ORDER)} ตลาด  •  ข้อมูล ณ {today}", fontproperties=TH, fontsize=14, color="white", ha="center")
-if skipped or missing:
-    miss = sorted(set(list(skipped.keys()) + missing))
-    fig.text(0.5, 0.40, "ไม่มีข้อมูลในฉบับนี้: " + ", ".join(miss), fontproperties=TH, fontsize=11, color="#ff9a9a", ha="center")
 fig.text(0.5, 0.06, "Bangkok Bank CIO  •  Internal Use Only", fontproperties=TH, fontsize=10, color="#8a9cc0", ha="center")
 fig.savefig(OUT/"_cover.png", dpi=150)
 plt.close(fig)

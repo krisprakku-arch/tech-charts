@@ -101,7 +101,7 @@ if __name__ == "__main__":
     only = sys.argv[1:] or list(summ.keys())
     names = {"SP500": "S&P 500", "BRENT": "Brent", "XAU": "ทองคำ", "NASDAQ": "Nasdaq",
              "US10Y": "US 10Y", "STOXX600": "STOXX 600", "SET": "SET Index",
-             "SSE": "SSE Composite",
+             "SSE": "SSE Composite", "HSI": "HSI",
              "HSCEI": "HSCEI", "NIKKEI225": "Nikkei 225", "SENSEX": "Sensex", "USDTHB": "USD/THB"}
     done = 0
     for key in only:
